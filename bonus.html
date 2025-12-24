@@ -1,76 +1,70 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bonus Calculator — LuckyLuna</title>
-<meta name="description" content="Calculate your bonus quickly with LuckyLuna's interactive bonus calculator.">
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bonus Calculator — LuckyLuna</title>
+  <meta name="description" content="Calculate your bonus quickly with LuckyLuna's interactive bonus calculator.">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="site-header small">
-<nav class="nav container">
-<a class="brand" href="index.html">LuckyLuna</a>
-<div class="nav-links">
-<a href="index.html" class="btn btn-ghost">Home</a>
-<a href="howto.html" class="btn btn-ghost">How to get bonus</a>
-</div>
-</nav>
-</header>
+  <header class="site-header small">
+    <nav class="nav container">
+      <a class="brand" href="index.html">LuckyLuna</a>
+      <div class="nav-links">
+        <a href="index.html" class="btn btn-ghost">Home</a>
+        <a href="howto.html" class="btn btn-ghost">How to get bonus</a>
+      </div>
+    </nav>
+  </header>
 
+  <main class="container">
+    <section class="calculator-card card glass">
+      <h1 class="calc-title">Bonus Calculator</h1>
+      <p class="muted">Enter deposit and select a bonus to preview your total balance.</p>
 
-<main class="container">
-<section class="calculator-card card glass">
-<h1 class="calc-title">Bonus Calculator</h1>
-<p class="muted">Enter deposit and select a bonus to preview your total balance.</p>
+      <div class="calc-row">
+        <label>Deposit amount</label>
+        <div class="input-group">
+          <input id="deposit" type="number" min="1" value="10" />
+          <select id="preset-percent" aria-label="Preset bonus percent">
+            <option value="50">50%</option>
+            <option value="75">75%</option>
+            <option value="100" selected>100%</option>
+            <option value="150">150%</option>
+            <option value="custom">Custom</option>
+          </select>
+          <input id="custom-percent" type="number" min="0" max="1000" value="100" aria-hidden="true" />
+        </div>
+      </div>
 
+      <div class="calc-result">
+        <div class="result-block">
+          <div class="label">Bonus</div>
+          <div id="bonus-value" class="big">$0</div>
+        </div>
+        <div class="result-block">
+          <div class="label">Total Balance</div>
+          <div id="total-value" class="big">$0</div>
+        </div>
+      </div>
 
-<div class="calc-row">
-<label>Deposit amount</label>
-<div class="input-group">
-<input id="deposit" type="number" min="1" value="10" />
-<select id="preset-percent" aria-label="Preset bonus percent">
-<option value="50">50%</option>
-<option value="75">75%</option>
-<option value="100" selected>100%</option>
-<option value="150">150%</option>
-<option value="custom">Custom</option>
-</select>
-<input id="custom-percent" type="number" min="0" max="1000" value="100" aria-hidden="true" />
-</div>
-</div>
+      <div class="calc-actions">
+        <button id="calc-claim" class="btn btn-gold btn-large">Claim Bonus Now</button>
+        <a href="howto.html" class="btn btn-ghost">How to claim</a>
+      </div>
+    </section>
 
+    <section class="tips">
+      <h2 class="section-title">Tips for smarter play</h2>
+      <ul>
+        <li>Check wagering requirements in your region.</li>
+        <li>Use responsible bankroll management.</li>
+        <li>Contact LuckyLuna for any personalized help.</li>
+      </ul>
+    </section>
+  </main>
 
-<div class="calc-result">
-<div class="result-block">
-<div class="label">Bonus</div>
-<div id="bonus-value" class="big">$0</div>
-</div>
-<div class="result-block">
-<div class="label">Total Balance</div>
-<div id="total-value" class="big">$0</div>
-</div>
-</div>
-
-
-<div class="calc-actions">
-<button id="calc-claim" class="btn btn-gold btn-large">Claim Bonus Now</button>
-<a href="howto.html" class="btn btn-ghost">How to claim</a>
-</div>
-</section>
-
-
-<section class="tips">
-<h2 class="section-title">Tips for smarter play</h2>
-<ul>
-<li>Check wagering requirements in your region.</li>
-<li>Use responsible bankroll management.</li>
-<li>Contact LuckyLuna for any personalized help.</li>
-</ul>
-</section>
-</main>
-
-
-<script src="assets/script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
