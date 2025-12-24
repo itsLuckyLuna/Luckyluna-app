@@ -1,48 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuckyLuna - 1XBET Official Affiliate</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #222);
-            text-align: center; margin: 0; padding: 20px;
-        }
-        .header { margin-top: 20px; }
-        .logo { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); margin: 0 auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; }
-        .brand-name { font-size: 24px; font-weight: bold; margin-top: 10px; color: #6a11cb; }
-        .promo-card { background: var(--tg-theme-secondary-bg-color, #f0f0f0); border-radius: 15px; padding: 20px; margin: 20px 0; border: 1px solid #ddd; }
-        .btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 10px; background-color: #ffd700; color: #000; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; }
-        .btn-main { background-color: var(--tg-theme-button-color, #2481cc); color: var(--tg-theme-button-text-color, #ffffff); }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo">🌙</div>
-        <div class="brand-name">LuckyLuna</div>
-        <p>Your path to big wins starts here.</p>
-    </div>
+<!doctype html>
+<button class="nav-toggle" aria-label="Open menu">☰</button>
+</nav>
+</header>
 
-    <div class="promo-card">
-        <h3>🎁 Welcome Bonus</h3>
-        <p>Use code <b>LUNA777</b> for a 200% bonus on your first deposit!</p>
-        <a href="YOUR_1XBET_LINK_HERE" class="btn btn-main">Register on 1XBET</a>
-    </div>
 
-    <div class="links">
-        <a href="YOUR_TELEGRAM_CHANNEL_LINK" class="btn">Join my VIP Channel</a>
-        <a href="YOUR_SUPPORT_LINK" class="btn">Contact Support</a>
-    </div>
+<main>
+<section class="hero container">
+<div class="hero-left">
+<div class="kicker">Exclusive • Trusted • Fast</div>
+<h1 class="headline">LuckyLuna — Claim your <span class="accent">1XBET</span> Welcome Bonus</h1>
+<p class="subhead">Premium offers, fast payouts, and personalized guidance. Use the LuckyLuna promo to unlock higher bonuses.</p>
+<div class="hero-ctas">
+<a href="bonus.html" class="btn btn-primary btn-animated">Calculate Your Bonus</a>
+<a href="#" id="hero-claim" class="btn btn-gold btn-animated">Get Your Bonus</a>
+</div>
+</div>
+<div class="hero-right">
+<div class="card glass">
+<div class="card-header">
+<div class="avatar">🌙</div>
+<div>
+<div class="card-title">Welcome Offer</div>
+<div class="card-sub">Up to <strong>100%</strong> on first deposit</div>
+</div>
+</div>
+<div class="card-body">
+<ul class="benefits">
+<li>Fast payouts</li>
+<li>Exclusive promo: <strong>LuckyLuna</strong></li>
+<li>Trusted 1XBET partner</li>
+</ul>
+<div class="mini-cta">
+<a href="howto.html" class="btn btn-ghost">How it works</a>
+<a href="#" class="btn btn-gold">Claim Now</a>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-    <script>
-        // Tell Telegram the app is ready
-        const tele = window.Telegram.WebApp;
-        tele.ready();
-        tele.expand(); // Opens the app to full height
-    </script>
+
+<section class="features container">
+<h2 class="section-title">Why LuckyLuna?</h2>
+<div class="grid">
+<article class="feature card">
+<svg class="icon" viewBox="0 0 24 24"><path d="M12 2L15 8l6 .5-4.5 3.5L18 20l-6-4-6 4 1.5-8.0L2 8.5 8 8z"/></svg>
+<h3>Fast Payouts</h3>
+<p>Withdraw winnings quickly with reliable processing.</p>
+</article>
+<article class="feature card">
+<svg class="icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
+<h3>Exclusive Offers</h3>
+<p>Personal promo codes and seasonal boosts.</p>
+</article>
+<article class="feature card">
+<svg class="icon" viewBox="0 0 24 24"><path d="M12 7l5 5-5 5-5-5z"/></svg>
+<h3>Trusted Platform</h3>
+<p>Official 1XBET partnership and verified bonuses.</p>
+</article>
+</div>
+</section>
+
+
+<section class="testimonials container">
+<h2 class="section-title">Quick Start</h2>
+<ol class="steps">
+<li class="step">Register on 1XBET → <strong>Use LuckyLuna</strong></li>
+<li class="step">Deposit → get the matched bonus</li>
+<li class="step">Play smart → Withdraw faster</li>
+</ol>
+</section>
+</main>
+
+
+<footer class="site-footer">
+<div class="container">© <span id="year"></span> LuckyLuna — Partner of 1XBET</div>
+</footer>
+
+
+<button id="sticky-claim" class="sticky-cta">Get Your Bonus</button>
+
+
+<script src="assets/script.js"></script>
 </body>
 </html>
