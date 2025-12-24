@@ -1,4 +1,69 @@
 // LuckyLuna - Shared JS (vanilla, Telegram-safe)
+// Edit DIRECT_LINK to your real DirectLink or Telegram Web App URL.
+const DIRECT_LINK = "https://direct-link.example/?promo=LuckyLuna"; // <- REPLACE with your DirectLink
+
+
+document.addEventListener('DOMContentLoaded', ()=>{
+// set current year
+const y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
+
+
+// Hook up sticky claim and header CTAs
+const sticky = document.getElementById('sticky-claim');
+const heroClaim = document.getElementById('hero-claim');
+const mainClaim = document.getElementById('main-claim');
+const howtoClaim = document.getElementById('howto-claim');
+const calcClaim = document.getElementById('calc-claim');
+
+
+function openDirectLink(){
+// For Telegram Web Apps, Telegram will open the link using WebApp.openLink in their environment —
+// but a plain anchor will work for DirectLink traffic. Keep it simple and safe.
+window.location.href = DIRECT_LINK;
+}
+[sticky, heroClaim, mainClaim, howtoClaim, calcClaim].forEach(el=>{
+if(!el) return;
+el.addEventListener('click', (e)=>{
+e.preventDefault();
+addRipple(e.target, e);
+// small delay for ripple
+setTimeout(()=>openDirectLink(), 160);
+})
+})
+
+
+// Nav toggle for mobile
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+if(navToggle){
+navToggle.addEventListener('click', ()=>{
+navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+});
+}
+
+
+// Bonus calculator logic
+const depositInput = document.getElementById('deposit');
+const preset = document.getElementById('preset-percent');
+const custom = document.getElementById('custom-percent');
+const bonusValue = document.getElementById('bonus-value');
+const totalValue = document.getElementById('total-value');
+
+function compute(){
+const deposit = parseFloat(depositInput?.value) || 0;
+let pct = 0;
+if(preset && preset.value !== 'custom') pct = parseFloat(preset.value);
+else pct = parseFloat(custom?.value) || 0;
+
+
+const bonus = +(deposit * pct / 100).toFixed(2);
+const total = +(deposit + bonus).toFixed(2);
+animateNumber(bonusValue, bonus, 600);
+animateNumber(totalValue, total, 600);
+}
+if(depositInput) depositInput.addEventListener('input', compute);
+if(preset) preset.addEventListener('change', (e)=>{
+if(e.target.value === 'custom'){
 custom.removeAttribute('aria-hidden'); custom.style.display = 'inline-block'; custom.focus();
 }else{ custom.style.display = 'none'; custom.setAttribute('aria-hidden', 'true'); }
 compute();
@@ -33,7 +98,6 @@ circle.style.top = (e.clientY - rect.top - size/2) + 'px';
 target.appendChild(circle);
 setTimeout(()=>circle.remove(), 650);
 }
-
 
 // Attach ripple to primary buttons
 document.querySelectorAll('.btn-primary, .btn-gold, .btn-large').forEach(b=>{ b.classList.add('ripple'); b.addEventListener('click', ()=>{}); });
@@ -79,4 +143,4 @@ t.scrollIntoView({behavior:'smooth'});
 });
 
 
-});
+});                          
