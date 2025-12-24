@@ -1,6 +1,6 @@
 // LuckyLuna - Shared JS (vanilla, Telegram-safe)
 // Edit DIRECT_LINK to your real DirectLink or Telegram Web App URL.
-const DIRECT_LINK = "https://itsluckyluna.github.io/Luckyluna-app/"; // <- REPLACE with your DirectLink
+const DIRECT_LINK = "https://t.me/LuckyLuna_Bot/LuckyLunaApp"; // <- REPLACE with your DirectLink
 
 document.addEventListener('DOMContentLoaded', ()=>{
   // set current year
