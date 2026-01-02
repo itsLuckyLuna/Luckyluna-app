@@ -1,70 +1,239 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Bonus Calculator — LuckyLuna</title>
-  <meta name="description" content="Calculate your bonus quickly with LuckyLuna's interactive bonus calculator.">
-  <link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bonus Calculator — Lucky Luna</title>
+  <meta name="description" content="Calculate your bonus quickly with LuckyLuna's interactive bonus calculator." />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0">
+
+  <style>
+    :root{
+      --luna-blue: #139FFF;
+      --luna-purple: #9B59FF;
+      --luna-gold: #FFD400;
+      --bg-1: #06121A;
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(230,242,255,0.72);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: radial-gradient(600px 300px at 12% 18%, rgba(19,159,255,0.04), transparent 6%),
+                  radial-gradient(500px 280px at 88% 82%, rgba(155,89,255,0.03), transparent 8%),
+                  linear-gradient(180deg,var(--bg-1), #07121b);
+      color:#eaf2ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Glass card helper */
+    .glass { background:var(--card); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius:14px; }
+
+    /* Animated accent bar */
+    .accent-gradient{ height:6px; width:100%; border-radius:999px; background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple),var(--luna-gold)); background-size:200% 200%; animation: shift 6s linear infinite; }
+    @keyframes shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Buttons */
+    .btn-cta{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); color:#041523; font-weight:800; padding:.75rem 1.1rem; border-radius:12px; box-shadow: 0 10px 40px rgba(19,159,255,0.06); transition: transform .18s ease, box-shadow .18s ease; }
+    .btn-cta:hover{ transform:translateY(-4px); box-shadow:0 22px 60px rgba(155,89,255,0.12); }
+    .btn-ghost{ padding:.6rem .9rem; border-radius:10px; border:1px solid rgba(255,255,255,0.05); color:var(--muted); background:transparent; }
+
+    /* Hero styles */
+    .hero-title{ font-weight:900; letter-spacing:-0.02em; line-height:1; }
+    .glow-text{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); -webkit-background-clip: text; background-clip:text; color:transparent; text-shadow:0 6px 30px rgba(19,159,255,0.06); }
+
+    /* floating orb */
+    .orb{ position:absolute; right:-56px; top:-56px; width:180px; height:180px; border-radius:999px; filter: blur(12px); background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 30%), linear-gradient(180deg, rgba(155,89,255,0.12), rgba(19,159,255,0.08)); animation: floaty 6s ease-in-out infinite; pointer-events:none; }
+    @keyframes floaty{ 0% { transform:translateY(0) } 50% { transform:translateY(-8px) } 100% { transform:translateY(0) } }
+
+    /* subtle entrance */
+    .reveal{ opacity:0; transform:translateY(12px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+
+    /* marquee */
+    .marquee{ overflow:hidden; white-space:nowrap; }
+    .marquee-track{ display:inline-flex; gap:2rem; animation: marquee 28s linear infinite; }
+    .marquee-track:hover{ animation-play-state:paused; }
+    @keyframes marquee{ 0%{ transform: translateX(0) } 100%{ transform: translateX(-50%) } }
+
+    /* bonus buttons */
+    .region-btn{ padding:.6rem .8rem; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; font-weight:700; }
+    .region-btn.active{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); color:#041523; border-color:transparent; }
+
+    /* responsive tweaks */
+    @media (max-width:900px){ .orb{ display:none } .hero-title{ font-size:1.6rem } }
+
+    /* small helpers */
+    .chip{ padding:.35rem .6rem; border-radius:999px; background:rgba(255,255,255,0.03); font-weight:700; font-size:12px }
+    .small-muted{ color:rgba(230,242,255,0.62); font-size:13px }
+
+    /* Additional for calculator */
+    input[type="number"], select { background: rgba(255,255,255,0.05); border: none; border-radius: 8px; padding: 0.5rem; color: #eaf2ff; width: 100%; }
+    .input-group { display: flex; gap: 1rem; align-items: center; }
+    .result-block { display: flex; flex-direction: column; align-items: center; }
+    .big { font-size: 2rem; font-weight: bold; }
+  </style>
 </head>
 <body>
-  <header class="site-header small">
-    <nav class="nav container">
-      <a class="brand" href="index.html">LuckyLuna</a>
-      <div class="nav-links">
+  <!-- Config: edit these variables below for your live values -->
+  <script>
+    const CONFIG = {
+      AFFILIATE_LINK: 'https://1xbet.com/en?tag=d_5038058m_1599c_', // replace with your tag
+      PROMO_CODE: 'LLUNA1X',
+      TELEGRAM_USERNAME: 'LuckyLunaSignals' // no @
+    };
+  </script>
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- NAV -->
+    <nav class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0ea5e9]/20 to-[#9b59ff]/20 flex items-center justify-center glass"> 
+          <!-- placeholder logo (replace with your SVG/png) -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c1.657 0 3 1.343 3 3 0 .732-.252 1.405-.672 1.956C16.002 8.23 17 9.99 17 12c0 3.866-3.582 7-5 7s-5-3.134-5-7c0-2.01.998-3.77 2.672-5.044C9.252 6.405 9 5.732 9 5c0-1.657 1.343-3 3-3z" fill="#9b59ff"/></svg>
+        </div>
+        <div>
+          <div class="text-lg font-extrabold">Lucky Luna</div>
+          <div class="text-xs small-muted">Official 1XBET affiliate</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
         <a href="index.html" class="btn btn-ghost">Home</a>
-        <a href="howto.html" class="btn btn-ghost">How to get bonus</a>
+        <a href="howto.html" class="btn btn-ghost">How to Get Bonus</a>
+        <button id="navRegister" class="btn-cta">Join & Claim</button>
+        <button id="navTelegram" class="btn-ghost">Telegram</button>
       </div>
     </nav>
-  </header>
 
-  <main class="container">
-    <section class="calculator-card card glass">
-      <h1 class="calc-title">Bonus Calculator</h1>
-      <p class="muted">Enter deposit and select a bonus to preview your total balance.</p>
+    <!-- CALCULATOR SECTION -->
+    <section class="glass relative overflow-hidden p-6 rounded-xl reveal" aria-label="Bonus Calculator">
+      <div class="orb" aria-hidden="true"></div>
+      <h1 class="hero-title text-3xl lg:text-4xl">Bonus Calculator</h1>
+      <p class="mt-2 small-muted">Enter deposit and select a bonus to preview your total balance.</p>
 
-      <div class="calc-row">
-        <label>Deposit amount</label>
-        <div class="input-group">
-          <input id="deposit" type="number" min="1" value="10" />
-          <select id="preset-percent" aria-label="Preset bonus percent">
+      <div class="mt-6">
+        <label class="text-xs small-muted">Deposit amount</label>
+        <div class="input-group mt-2">
+          <input id="deposit" type="number" min="1" value="10" class="flex-1" />
+          <select id="preset-percent" aria-label="Preset bonus percent" class="flex-1">
             <option value="50">50%</option>
             <option value="75">75%</option>
             <option value="100" selected>100%</option>
             <option value="150">150%</option>
             <option value="custom">Custom</option>
           </select>
-          <input id="custom-percent" type="number" min="0" max="1000" value="100" aria-hidden="true" />
+          <input id="custom-percent" type="number" min="0" max="1000" value="100" class="flex-1 hidden" />
         </div>
       </div>
 
-      <div class="calc-result">
-        <div class="result-block">
-          <div class="label">Bonus</div>
-          <div id="bonus-value" class="big">$0</div>
+      <div class="mt-6 grid grid-cols-2 gap-4 calc-result">
+        <div class="result-block glass p-4 rounded-lg">
+          <div class="text-xs small-muted">Bonus</div>
+          <div id="bonus-value" class="big">$10</div>
         </div>
-        <div class="result-block">
-          <div class="label">Total Balance</div>
-          <div id="total-value" class="big">$0</div>
+        <div class="result-block glass p-4 rounded-lg">
+          <div class="text-xs small-muted">Total Balance</div>
+          <div id="total-value" class="big">$20</div>
         </div>
       </div>
 
-      <div class="calc-actions">
-        <button id="calc-claim" class="btn btn-gold btn-large">Claim Bonus Now</button>
-        <a href="howto.html" class="btn btn-ghost">How to claim</a>
+      <div class="mt-6 flex flex-wrap gap-3 calc-actions">
+        <button id="calc-claim" class="btn-cta">Claim Bonus Now</button>
+        <a href="howto.html" class="btn-ghost">How to claim</a>
       </div>
     </section>
 
-    <section class="tips">
-      <h2 class="section-title">Tips for smarter play</h2>
-      <ul>
+    <!-- TIPS SECTION -->
+    <section class="mt-8 glass p-6 rounded-xl reveal">
+      <h2 class="text-2xl font-bold">Tips for smarter play</h2>
+      <ul class="mt-4 list-disc list-inside small-muted text-sm">
         <li>Check wagering requirements in your region.</li>
         <li>Use responsible bankroll management.</li>
         <li>Contact LuckyLuna for any personalized help.</li>
       </ul>
     </section>
-  </main>
 
-  <script src="assets/script.js"></script>
+    <!-- FOOTER -->
+    <footer class="mt-8 text-sm small-muted">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>© Lucky Luna — 1XBET Affiliate • 18+ only</div>
+        <div class="flex gap-4"><a href="#" class="small-muted">Privacy</a><a href="#" class="small-muted">Terms</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Libraries: confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // Common functions from main
+    function openAffiliate(){
+      const utm = 'utm_source=luckyluna&utm_medium=landing&utm_campaign=promo';
+      const url = CONFIG.AFFILIATE_LINK + (CONFIG.AFFILIATE_LINK.includes('?') ? '&' + utm : '?' + utm);
+      window.open(url, '_blank', 'noopener');
+      toast('Opening 1XBET • remember your code: ' + CONFIG.PROMO_CODE);
+    }
+
+    function openTelegram(){
+      const web = 'https://t.me/' + CONFIG.TELEGRAM_USERNAME;
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = 'tg://resolve?domain=' + CONFIG.TELEGRAM_USERNAME;
+        setTimeout(()=> window.open(web, '_blank', 'noopener'), 700);
+      } else window.open(web, '_blank', 'noopener');
+    }
+
+    function toast(msg){
+      const t = document.createElement('div'); t.innerText = msg;
+      Object.assign(t.style, { position:'fixed', left:'50%', transform:'translateX(-50%)', bottom:'72px', background:'rgba(2,6,23,0.88)', color:'white', padding:'10px 14px', borderRadius:'8px', zIndex:9999, fontSize:'13px' });
+      document.body.appendChild(t); setTimeout(()=> t.style.opacity='0', 1400); setTimeout(()=> t.remove(), 1800);
+    }
+
+    // Wire buttons
+    document.getElementById('navRegister')?.addEventListener('click', openAffiliate);
+    document.getElementById('navTelegram')?.addEventListener('click', openTelegram);
+    document.getElementById('calc-claim')?.addEventListener('click', openAffiliate);
+
+    // Calculator logic
+    const depositInput = document.getElementById('deposit');
+    const presetSelect = document.getElementById('preset-percent');
+    const customInput = document.getElementById('custom-percent');
+    const bonusValue = document.getElementById('bonus-value');
+    const totalValue = document.getElementById('total-value');
+
+    function updateCalculator() {
+      let percent = parseFloat(presetSelect.value);
+      if (presetSelect.value === 'custom') {
+        customInput.classList.remove('hidden');
+        percent = parseFloat(customInput.value) || 0;
+      } else {
+        customInput.classList.add('hidden');
+      }
+      const deposit = parseFloat(depositInput.value) || 0;
+      const bonus = (deposit * percent) / 100;
+      bonusValue.innerText = `$${bonus.toFixed(2)}`;
+      totalValue.innerText = `$${(deposit + bonus).toFixed(2)}`;
+    }
+
+    depositInput.addEventListener('input', updateCalculator);
+    presetSelect.addEventListener('change', updateCalculator);
+    customInput.addEventListener('input', updateCalculator);
+    updateCalculator(); // Initial calc
+
+    // Confetti on claim
+    document.getElementById('calc-claim')?.addEventListener('click', () => {
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors:['#139FFF','#9B59FF','#FFD400'] });
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12 });
+    reveals.forEach(r => io.observe(r));
+  </script>
 </body>
 </html>
