@@ -1,97 +1,363 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LuckyLuna — Exclusive 1XBET Bonuses</title>
-  <meta name="description" content="LuckyLuna — premium 1XBET affiliate. Fast payouts, exclusive bonuses and easy steps to claim your welcome offer.">
-  <link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lucky Luna — 1XBET Affiliate</title>
+  <meta name="description" content="Lucky Luna — official 1XBET affiliate landing. Use promo code to claim exclusive bonuses. Telegram onboarding & fast signup." />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0">
+
+  <style>
+    :root{
+      --luna-blue: #139FFF;
+      --luna-purple: #9B59FF;
+      --luna-gold: #FFD400;
+      --bg-1: #06121A;
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(230,242,255,0.72);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: radial-gradient(600px 300px at 12% 18%, rgba(19,159,255,0.04), transparent 6%),
+                  radial-gradient(500px 280px at 88% 82%, rgba(155,89,255,0.03), transparent 8%),
+                  linear-gradient(180deg,var(--bg-1), #07121b);
+      color:#eaf2ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Glass card helper */
+    .glass { background:var(--card); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius:14px; }
+
+    /* Animated accent bar */
+    .accent-gradient{ height:6px; width:100%; border-radius:999px; background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple),var(--luna-gold)); background-size:200% 200%; animation: shift 6s linear infinite; }
+    @keyframes shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Buttons */
+    .btn-cta{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); color:#041523; font-weight:800; padding:.75rem 1.1rem; border-radius:12px; box-shadow: 0 10px 40px rgba(19,159,255,0.06); transition: transform .18s ease, box-shadow .18s ease; }
+    .btn-cta:hover{ transform:translateY(-4px); box-shadow:0 22px 60px rgba(155,89,255,0.12); }
+    .btn-ghost{ padding:.6rem .9rem; border-radius:10px; border:1px solid rgba(255,255,255,0.05); color:var(--muted); background:transparent; }
+
+    /* Hero styles */
+    .hero-title{ font-weight:900; letter-spacing:-0.02em; line-height:1; }
+    .glow-text{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); -webkit-background-clip: text; background-clip:text; color:transparent; text-shadow:0 6px 30px rgba(19,159,255,0.06); }
+
+    /* floating orb */
+    .orb{ position:absolute; right:-56px; top:-56px; width:180px; height:180px; border-radius:999px; filter: blur(12px); background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 30%), linear-gradient(180deg, rgba(155,89,255,0.12), rgba(19,159,255,0.08)); animation: floaty 6s ease-in-out infinite; pointer-events:none; }
+    @keyframes floaty{ 0% { transform:translateY(0) } 50% { transform:translateY(-8px) } 100% { transform:translateY(0) } }
+
+    /* subtle entrance */
+    .reveal{ opacity:0; transform:translateY(12px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+
+    /* marquee */
+    .marquee{ overflow:hidden; white-space:nowrap; }
+    .marquee-track{ display:inline-flex; gap:2rem; animation: marquee 28s linear infinite; }
+    .marquee-track:hover{ animation-play-state:paused; }
+    @keyframes marquee{ 0%{ transform: translateX(0) } 100%{ transform: translateX(-50%) } }
+
+    /* bonus buttons */
+    .region-btn{ padding:.6rem .8rem; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; font-weight:700; }
+    .region-btn.active{ background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple)); color:#041523; border-color:transparent; }
+
+    /* responsive tweaks */
+    @media (max-width:900px){ .orb{ display:none } .hero-title{ font-size:1.6rem } }
+
+    /* small helpers */
+    .chip{ padding:.35rem .6rem; border-radius:999px; background:rgba(255,255,255,0.03); font-weight:700; font-size:12px }
+    .small-muted{ color:rgba(230,242,255,0.62); font-size:13px }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav container">
-      <a class="brand" href="index.html">LuckyLuna</a>
-      <div class="nav-links">
+  <!-- Config: edit these variables below for your live values -->
+  <script>
+    const CONFIG = {
+      AFFILIATE_LINK: 'https://1xbet.com/en?tag=d_5038058m_1599c_', // replace with your tag
+      PROMO_CODE: 'LLUNA1X',
+      TELEGRAM_USERNAME: 'LuckyLunaSignals' // no @
+    };
+  </script>
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- NAV -->
+    <nav class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0ea5e9]/20 to-[#9b59ff]/20 flex items-center justify-center glass"> 
+          <!-- placeholder logo (replace with your SVG/png) -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c1.657 0 3 1.343 3 3 0 .732-.252 1.405-.672 1.956C16.002 8.23 17 9.99 17 12c0 3.866-3.582 7-5 7s-5-3.134-5-7c0-2.01.998-3.77 2.672-5.044C9.252 6.405 9 5.732 9 5c0-1.657 1.343-3 3-3z" fill="#9b59ff"/></svg>
+        </div>
+        <div>
+          <div class="text-lg font-extrabold">Lucky Luna</div>
+          <div class="text-xs small-muted">Official 1XBET affiliate</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
         <a href="bonus.html" class="btn btn-ghost">Bonus Calculator</a>
-        <a href="howto.html" class="btn btn-ghost">How to get bonus</a>
-        <a href="#" id="main-claim" class="btn btn-gold">Get Your Bonus</a>
+        <a href="howto.html" class="btn btn-ghost">How to Get Bonus</a>
+        <button id="navRegister" class="btn-cta">Join & Claim</button>
+        <button id="navTelegram" class="btn-ghost">Telegram</button>
       </div>
-      <button class="nav-toggle" aria-label="Open menu">☰</button>
     </nav>
-  </header>
 
-  <main>
-    <section class="hero container">
-      <div class="hero-left">
-        <div class="kicker">Exclusive • Trusted • Fast</div>
-        <h1 class="headline">LuckyLuna — Claim your <span class="accent">1XBET</span> Welcome Bonus</h1>
-        <p class="subhead">Premium offers, fast payouts, and personalized guidance. Use the LuckyLuna promo to unlock higher bonuses.</p>
-        <div class="hero-ctas">
-          <a href="bonus.html" class="btn btn-primary btn-animated">Calculate Your Bonus</a>
-          <a href="#" id="hero-claim" class="btn btn-gold btn-animated">Get Your Bonus</a>
+    <!-- HERO -->
+    <section class="glass relative overflow-hidden p-6 rounded-xl grid lg:grid-cols-2 gap-6 items-center" aria-label="Lucky Luna hero">
+      <div class="orb" aria-hidden="true"></div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="chip">Exclusive</div>
+          <div class="text-xs small-muted">Use code</div>
+        </div>
+
+        <h1 class="hero-title text-4xl lg:text-5xl">Get your <span class="glow-text">Lucky Bonus</span> with <span class="text-white font-black">Lucky Luna</span></h1>
+        <p class="mt-3 small-muted max-w-xl">Fast signup, Telegram onboarding, curated promos and quick support. Use code <strong id="promoInHero">LLUNA1X</strong> at registration to unlock boosted bonuses.</p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button id="heroRegister" class="btn-cta">Register — Claim Bonus</button>
+          <button id="heroCopy" class="btn-ghost">Copy Code</button>
+          <button id="heroTelegram" class="btn-ghost">Join Telegram</button>
+        </div>
+
+        <div class="mt-6 flex items-center gap-6 text-sm opacity-80 small-muted">
+          <div class="flex items-center gap-2"><span class="chip">60+ Sports</span></div>
+          <div class="text-xs">Fast Payouts • Secure • Crypto-ready</div>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="card glass">
-          <div class="card-header">
-            <div class="avatar">🌙</div>
-            <div>
-              <div class="card-title">Welcome Offer</div>
-              <div class="card-sub">Up to <strong>100%</strong> on first deposit</div>
+
+      <!-- Right column: compact card with estimator, animated progress, and social proof -->
+      <div class="glass p-5 rounded-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs small-muted">Your code</div>
+            <div class="text-2xl font-extrabold" id="promoCodeCard">LLUNA1X</div>
+          </div>
+          <div class="text-right small-muted">
+            <div class="text-xs">Affiliate</div>
+            <div class="font-semibold">Lucky Luna</div>
+          </div>
+        </div>
+
+        <div class="accent-gradient mt-4"></div>
+
+        <div class="mt-4">
+          <div class="text-xs small-muted">Bonus estimator</div>
+          <div class="flex items-center gap-3 mt-3">
+            <div class="grid grid-cols-3 gap-2 w-full">
+              <button class="region-btn active" data-mult="2.0">Africa<br><span class="text-[11px]">200%</span></button>
+              <button class="region-btn" data-mult="1.3">LatAm / Asia<br><span class="text-[11px]">130%</span></button>
+              <button class="region-btn" data-mult="1.0">Global<br><span class="text-[11px]">100%</span></button>
             </div>
           </div>
-          <div class="card-body">
-            <ul class="benefits">
-              <li>Fast payouts</li>
-              <li>Exclusive promo: <strong>LuckyLuna</strong></li>
-              <li>Trusted 1XBET partner</li>
-            </ul>
-            <div class="mini-cta">
-              <a href="howto.html" class="btn btn-ghost">How it works</a>
-              <a href="#" class="btn btn-gold">Claim Now</a>
+
+          <div class="mt-3">
+            <div class="flex justify-between small-muted text-xs"><div>Deposit</div><div id="depValue">$100</div></div>
+            <input id="depRange" type="range" min="10" max="2000" value="100" class="w-full mt-2">
+
+            <div class="flex justify-between small-muted text-xs mt-3"><div>Bonus</div><div id="bonusValue">$200</div></div>
+            <div class="w-full bg-white/5 h-3 rounded-full mt-2 overflow-hidden">
+              <div id="bonusProgress" class="h-3 rounded-full" style="width:50%; background: linear-gradient(90deg,var(--luna-blue),var(--luna-purple));"></div>
+            </div>
+
+            <div class="mt-4 flex gap-2">
+              <button id="estRegister" class="btn-cta flex-1">Register</button>
+              <button id="estTelegram" class="btn-ghost">Telegram</button>
             </div>
           </div>
         </div>
+
+        <div class="mt-4 text-[12px] small-muted">Percentages illustrative. Subject to 1XBET T&Cs. Play responsibly. 18+</div>
       </div>
     </section>
 
-    <section class="features container">
-      <h2 class="section-title">Why LuckyLuna?</h2>
-      <div class="grid">
-        <article class="feature card">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L15 8l6 .5-4.5 3.5L18 20l-6-4-6 4 1.5-8.0L2 8.5 8 8z"/></svg>
-          <h3>Fast Payouts</h3>
-          <p>Withdraw winnings quickly with reliable processing.</p>
-        </article>
-        <article class="feature card">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
-          <h3>Exclusive Offers</h3>
-          <p>Personal promo codes and seasonal boosts.</p>
-        </article>
-        <article class="feature card">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 7l5 5-5 5-5-5z"/></svg>
-          <h3>Trusted Platform</h3>
-          <p>Official 1XBET partnership and verified bonuses.</p>
-        </article>
+    <!-- MARQUEE / LIVE TICKER -->
+    <div class="mt-6 glass p-3 rounded-lg marquee">
+      <div class="marquee-track" aria-hidden="true" id="marqueeTrack">
+        <div class="small-muted">PL: Liverpool vs Chelsea — 1.85 | 3.40 | 4.10</div>
+        <div class="small-muted">UCL: Bayern vs PSG — 1.72 | 3.80 | 4.50</div>
+        <div class="small-muted">NBA: Lakers vs Celtics — 1.91 | 1.89</div>
+        <div class="small-muted">Top odds — football & basketball</div>
+        <!-- duplicated for smooth loop -->
+        <div class="small-muted">PL: Liverpool vs Chelsea — 1.85 | 3.40 | 4.10</div>
+        <div class="small-muted">UCL: Bayern vs PSG — 1.72 | 3.80 | 4.50</div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-bold">Live Streaming</div>
+        <div class="text-xs small-muted">Thousands of live events, bet in-play.</div>
+      </div>
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-bold">Fast Payouts</div>
+        <div class="text-xs small-muted">Multiple payment methods & crypto.</div>
+      </div>
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-bold">Secure & Licensed</div>
+        <div class="text-xs small-muted">Advanced encryption & reliable platform.</div>
+      </div>
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-bold">Telegram Onboarding</div>
+        <div class="text-xs small-muted">Step-by-step help after signup.</div>
       </div>
     </section>
 
-    <section class="testimonials container">
-      <h2 class="section-title">Quick Start</h2>
-      <ol class="steps">
-        <li class="step">Register on 1XBET → <strong>Use LuckyLuna</strong></li>
-        <li class="step">Deposit → get the matched bonus</li>
-        <li class="step">Play smart → Withdraw faster</li>
-      </ol>
+    <!-- TESTIMONIALS & SOCIAL PROOF -->
+    <section class="mt-8 grid md:grid-cols-2 gap-4">
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-semibold">“Saved me time and set up my first deposit”</div>
+        <div class="text-xs small-muted mt-2">— Anna • real user</div>
+      </div>
+      <div class="glass p-4 rounded-lg reveal">
+        <div class="font-semibold">“Clear tips, fast support”</div>
+        <div class="text-xs small-muted mt-2">— Mark • VIP member</div>
+      </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container">© <span id="year"></span> LuckyLuna — Partner of 1XBET</div>
-  </footer>
+    <!-- PARTNERS -->
+    <section class="mt-8 py-6 glass p-4 rounded-lg reveal">
+      <div class="text-xs small-muted mb-4">Payment & settlement partners</div>
+      <div class="flex flex-wrap gap-6 items-center">
+        <div class="h-6 w-20 bg-white/6 rounded flex items-center justify-center text-xs small-muted">Visa</div>
+        <div class="h-6 w-20 bg-white/6 rounded flex items-center justify-center text-xs small-muted">Mastercard</div>
+        <div class="h-6 w-20 bg-white/6 rounded flex items-center justify-center text-xs small-muted">Skrill</div>
+        <div class="h-6 w-20 bg-white/6 rounded flex items-center justify-center text-xs small-muted">Crypto</div>
+      </div>
+    </section>
 
-  <button id="sticky-claim" class="sticky-cta">Get Your Bonus</button>
+    <!-- FOOTER -->
+    <footer class="mt-8 text-sm small-muted">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>© Lucky Luna — 1XBET Affiliate • 18+ only</div>
+        <div class="flex gap-4"><a href="#" class="small-muted">Privacy</a><a href="#" class="small-muted">Terms</a></div>
+      </div>
+    </footer>
 
-  <script src="assets/script.js"></script>
+  </div>
+
+  <!-- COOKIE BANNER -->
+  <div id="cookieBanner" class="fixed bottom-4 left-4 right-4 md:right-auto md:left-auto md:bottom-8 glass p-3 rounded-xl shadow-lg max-w-3xl mx-auto flex items-center justify-between" role="dialog" aria-label="Cookie consent">
+    <div class="small-muted">We use cookies to improve experience. By using this site you accept our <a href="#" class="underline small-muted">Privacy Policy</a>.</div>
+    <div class="flex gap-2">
+      <button id="acceptCookies" class="btn-cta">Accept</button>
+      <button id="declineCookies" class="btn-ghost">Decline</button>
+    </div>
+  </div>
+
+  <!-- Libraries: confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // --- Wire config to DOM ---
+    document.getElementById('promoInHero').innerText = CONFIG.PROMO_CODE;
+    document.getElementById('promoCodeCard').innerText = CONFIG.PROMO_CODE;
+
+    // --- UI elements ---
+    const heroRegister = document.getElementById('heroRegister');
+    const heroCopy = document.getElementById('heroCopy');
+    const heroTelegram = document.getElementById('heroTelegram');
+    const navRegister = document.getElementById('navRegister');
+    const navTelegram = document.getElementById('navTelegram');
+    const estRegister = document.getElementById('estRegister');
+    const estTelegram = document.getElementById('estTelegram');
+
+    function openAffiliate(){
+      const utm = 'utm_source=luckyluna&utm_medium=landing&utm_campaign=promo';
+      const url = CONFIG.AFFILIATE_LINK + (CONFIG.AFFILIATE_LINK.includes('?') ? '&' + utm : '?' + utm);
+      window.open(url, '_blank', 'noopener');
+      toast('Opening 1XBET • remember your code: ' + CONFIG.PROMO_CODE);
+    }
+
+    function openTelegram(){
+      const web = 'https://t.me/' + CONFIG.TELEGRAM_USERNAME;
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = 'tg://resolve?domain=' + CONFIG.TELEGRAM_USERNAME;
+        setTimeout(()=> window.open(web, '_blank', 'noopener'), 700);
+      } else window.open(web, '_blank', 'noopener');
+    }
+
+    function copyToClipboard(text){
+      navigator.clipboard?.writeText(text).then(()=> toast('Code copied'))
+      .catch(()=>{ const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Copied'); });
+    }
+
+    // Toast helper
+    function toast(msg){
+      const t = document.createElement('div'); t.innerText = msg;
+      Object.assign(t.style, { position:'fixed', left:'50%', transform:'translateX(-50%)', bottom:'72px', background:'rgba(2,6,23,0.88)', color:'white', padding:'10px 14px', borderRadius:'8px', zIndex:9999, fontSize:'13px' });
+      document.body.appendChild(t); setTimeout(()=> t.style.opacity='0', 1400); setTimeout(()=> t.remove(), 1800);
+    }
+
+    [heroRegister, navRegister, estRegister].forEach(el => el?.addEventListener('click', openAffiliate));
+    [heroTelegram, navTelegram, estTelegram].forEach(el => el?.addEventListener('click', openTelegram));
+    heroCopy?.addEventListener('click', ()=> copyToClipboard(CONFIG.PROMO_CODE));
+
+    // --- confetti on register CTA ---
+    heroRegister?.addEventListener('click', ()=>{
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors:['#139FFF','#9B59FF','#FFD400'] });
+    });
+
+    // --- bonus estimator logic ---
+    const depRange = document.getElementById('depRange');
+    const depValue = document.getElementById('depValue');
+    const bonusValue = document.getElementById('bonusValue');
+    const bonusProgress = document.getElementById('bonusProgress');
+    let currentMultiplier = 2.0;
+
+    function updateEstimator(){
+      const deposit = Number(depRange?.value || 100);
+      const bonus = Math.round(deposit * currentMultiplier);
+      depValue.innerText = '$' + deposit;
+      bonusValue.innerText = '$' + bonus;
+      // progress (normalize to 200%)
+      const pct = Math.min(100, Math.round((currentMultiplier/2.0) * 100));
+      bonusProgress.style.width = pct + '%';
+    }
+    // region buttons toggle
+    document.querySelectorAll('.region-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        document.querySelectorAll('.region-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMultiplier = Number(btn.dataset.mult) || 1.0;
+        updateEstimator();
+      });
+    });
+    depRange?.addEventListener('input', updateEstimator);
+    updateEstimator();
+
+    // --- marquee cloning for smooth loop (if necessary) ---
+    (function cloneMarquee(){
+      const track = document.getElementById('marqueeTrack');
+      if(!track) return;
+      const clone = track.cloneNode(true);
+      track.parentNode.appendChild(clone);
+    })();
+
+    // --- reveal on scroll ---
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold:0.12 });
+    reveals.forEach(r=> io.observe(r));
+
+    // --- cookie banner ---
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptCookies = document.getElementById('acceptCookies');
+    const declineCookies = document.getElementById('declineCookies');
+    acceptCookies?.addEventListener('click', ()=>{ localStorage.setItem('cookiesAccepted','1'); cookieBanner.style.display='none'; });
+    declineCookies?.addEventListener('click', ()=>{ localStorage.setItem('cookiesAccepted','0'); cookieBanner.style.display='none'; });
+    if(localStorage.getItem('cookiesAccepted') !== null) cookieBanner.style.display='none';
+
+    // --- keyboard shortcut: Ctrl/Cmd + C copies promo code ---
+    document.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='c'){ e.preventDefault(); copyToClipboard(CONFIG.PROMO_CODE); }
+    });
+
+    // Accessibility: allow Enter on buttons (native) and provide aria labels where needed.
+  </script>
 </body>
 </html>
